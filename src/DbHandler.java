@@ -14,22 +14,25 @@ public class DbHandler {
     public static final String COLUMN_BOOK_ID = "id";
     public static final String COLUMN_BOOK_TITLE = "title";
     public static final String COLUMN_BOOK_AUTHOR = "authorName";
-    public static final String COLUMN_BOOK_QUANTITY = "quantity";
     public static final String COLUMN_BOOK_PRICE = "price";
+    public static final String COLUMN_BOOK_QUANTITY = "quantity";
+
 
     public static final int INDEX_BOOK_ID = 1;
     public static final int INDEX_BOOK_TITLE = 2;
     public static final int INDEX_BOOK_AUTHOR= 3;
-    public static final int INDEX_BOOK_QUANTITY= 4;
-    public static final int INDEX_BOOK_PRICE= 5;
+
+    public static final int INDEX_BOOK_PRICE = 4;
+    public static final int INDEX_BOOK_QUANTITY= 5;
 
 
     public static final String TABLE_EBOOKS = "ebooks";
     public static final String COLUMN_EBOOK_ID = "id";
     public static final String COLUMN_EBOOK_TITLE = "title";
     public static final String COLUMN_EBOOK_AUTHOR = "authorName";
-    public static final String COLUMN_EBOOK_QUANTITY = "quantity";
     public static final String COLUMN_EBOOK_PRICE = "price";
+    public static final String COLUMN_EBOOK_QUANTITY = "quantity";
+
 
     public static final  int INDEX_EBOOK_ID = 1;
     public static final  int INDEX_EBOOK_TITLE = 2;
@@ -101,7 +104,7 @@ public class DbHandler {
 
     public static final String SEARCH_BOOK_BY_TITLE = "SELECT " + COLUMN_BOOK_ID + ", " + COLUMN_BOOK_TITLE + ", " +
             COLUMN_BOOK_AUTHOR + ", " + COLUMN_BOOK_PRICE + " FROM " + TABLE_BOOKS + " WHERE " +
-            COLUMN_BOOK_TITLE + " = ?";
+            COLUMN_BOOK_TITLE + " LIKE ?";
 
     private Connection con;
     private PreparedStatement queryAllBooks;
@@ -330,7 +333,7 @@ public class DbHandler {
     public List<Book> searchByTitle(String title){
         try {
 
-            searchByPartOfTitle.setString(1, title);
+            searchByPartOfTitle.setString(1, "%" + title + "%");
             ResultSet results = searchByPartOfTitle.executeQuery();
             List<Book> books = new ArrayList<>();
 

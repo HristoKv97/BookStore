@@ -13,7 +13,7 @@ public class Main {
 
         //DbHandler.getInstance().insertRequest(request);
         //System.out.println("ID Title Author Price Quantity");
-        printResults(DbHandler.getInstance().searchByTitle("Prikazki"));
+        printResults(DbHandler.getInstance().searchByTitle("kaz"));
     }
 
 
