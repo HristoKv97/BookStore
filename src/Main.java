@@ -13,16 +13,16 @@ public class Main {
 
         //DbHandler.getInstance().insertRequest(request);
         //System.out.println("ID Title Author Price Quantity");
-        printResults(DbHandler.getInstance().queryRequest());
+        printResults(DbHandler.getInstance().searchByTitle("Prikazki"));
     }
 
 
-    public static void printResults(List<Request> requests) {
-        for (Request r : requests) {
-            System.out.print(r.getId() + " ");
-           System.out.print(r.getClientid() + "  ");
-            System.out.print(r.getItemid() + "  ");
-           System.out.print(r.getProduct() + "   \n");
+    public static void printResults(List<Book> books) {
+        for (Book b : books) {
+            System.out.print(b.getId() + " ");
+           System.out.print(b.getAuthor() + "  ");
+            System.out.print(b.getTitle() + "  ");
+           System.out.print(b.getPrice() + "   \n");
         }
     }
 }

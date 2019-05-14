@@ -1,5 +1,6 @@
 import org.sqlite.core.DB;
 
+import javax.naming.directory.SearchResult;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
@@ -96,6 +97,9 @@ public class DbHandler {
     public static final String INSERT_REQUESTS = "INSERT INTO " + TABLE_REQUESTS + '(' + COLUMN_REQUESTS_ID + ", " + COLUMN_REQUESTS_CLIENTID + ", " +
             COLUMN_REQUESTS_ITEMID + ", " + COLUMN_REQUESTS_TYPE + ") VALUES(?, ?, ?, ?)";
 
+    public static final String SEARCH_BOOK_BY_TITLE = "SELECT " + COLUMN_BOOK_ID + ", " + COLUMN_BOOK_TITLE + ", " + COLUMN_BOOK_AUTHOR + ", " +
+            COLUMN_BOOK_PRICE + " FROM " + TABLE_BOOKS + " WHERE " + COLUMN_BOOK_TITLE + " LIKE '%?%'";
+
     private Connection con;
     private PreparedStatement queryAllBooks;
     private PreparedStatement insertIntoBooks;
@@ -105,6 +109,7 @@ public class DbHandler {
     private PreparedStatement insertIntoBoardGames;
     private PreparedStatement queryAllRequests;
     private PreparedStatement insertIntoRequests;
+    private PreparedStatement searchByPartOfTitle;
 
     private static DbHandler instance = new DbHandler();
 
@@ -127,6 +132,7 @@ public class DbHandler {
             insertIntoBoardGames = con.prepareStatement(INSERT_BOARDGAMES);
             queryAllRequests = con.prepareStatement(QUERY_REQUESTS);
             insertIntoRequests = con.prepareStatement(INSERT_REQUESTS);
+            searchByPartOfTitle = con.prepareStatement(SEARCH_BOOK_BY_TITLE);
             return true;
         } catch (SQLException e){
             System.out.println(e.getMessage());
@@ -160,6 +166,9 @@ public class DbHandler {
             }
             if(insertIntoRequests != null){
                 insertIntoRequests.close();
+            }
+            if(searchByPartOfTitle != null){
+                searchByPartOfTitle.close();
             }
             if(con != null){
                 con.close();
@@ -314,6 +323,32 @@ public class DbHandler {
             return null;
         }
     }
+
+    public List<Book> searchByTitle(String title){
+        try {
+
+            searchByPartOfTitle.setString(1, title);
+            ResultSet results = searchByPartOfTitle.executeQuery();
+            List<Book> books = new ArrayList<>();
+
+            while(results.next()){
+                Book book = new Book();
+
+                book.setId(results.getInt(INDEX_BOOK_ID));
+                book.setTitle(results.getString(INDEX_BOOK_TITLE));
+                book.setAuthor(results.getString(INDEX_BOOK_AUTHOR));
+                book.setPrice(results.getDouble(INDEX_BOOK_PRICE));
+
+                books.add(book);
+            }
+            return books;
+        } catch(SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+
+        }
+
 
 
 
