@@ -70,7 +70,7 @@ public class DbHandler {
     public static final int INDEX_CLIENTS_ID = 1;
     public static final int INDEX_CLIENTS_NAME = 2;
 
-    
+
 
     public static final  String QUERY_BOOKS = "SELECT " + COLUMN_BOOK_ID + ", " + COLUMN_BOOK_TITLE + ", " +
             COLUMN_BOOK_AUTHOR + ", " + COLUMN_BOOK_PRICE + ", " + COLUMN_BOOK_QUANTITY + " FROM " + TABLE_BOOKS + " WHERE " +
@@ -99,8 +99,9 @@ public class DbHandler {
     public static final String INSERT_REQUESTS = "INSERT INTO " + TABLE_REQUESTS + '(' + COLUMN_REQUESTS_ID + ", " + COLUMN_REQUESTS_CLIENTID + ", " +
             COLUMN_REQUESTS_ITEMID + ", " + COLUMN_REQUESTS_TYPE + ") VALUES(?, ?, ?, ?)";
 
-    public static final String SEARCH_BOOK_BY_TITLE = "SELECT " + COLUMN_BOOK_ID + ", " + COLUMN_BOOK_TITLE + ", " + COLUMN_BOOK_AUTHOR + ", " +
-            COLUMN_BOOK_PRICE + " FROM " + TABLE_BOOKS + " WHERE " + COLUMN_BOOK_TITLE + " = ?";
+    public static final String SEARCH_BOOK_BY_TITLE = "SELECT " + COLUMN_BOOK_ID + ", " + COLUMN_BOOK_TITLE + ", " +
+            COLUMN_BOOK_AUTHOR + ", " + COLUMN_BOOK_PRICE + " FROM " + TABLE_BOOKS + " WHERE " +
+            COLUMN_BOOK_TITLE + " = ?";
 
     private Connection con;
     private PreparedStatement queryAllBooks;

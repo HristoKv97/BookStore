@@ -13,9 +13,6 @@ public class Main {
 
         //DbHandler.getInstance().insertRequest(request);
         //System.out.println("ID Title Author Price Quantity");
-        if(DbHandler.getInstance().searchByTitle("Prikazki").isEmpty()){
-            System.out.println( "DAA");
-        }
         printResults(DbHandler.getInstance().searchByTitle("Prikazki"));
     }
 
