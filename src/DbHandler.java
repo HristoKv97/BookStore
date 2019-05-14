@@ -8,6 +8,7 @@ import java.util.List;
 public class DbHandler {
     public static final String DBNAME = "bookstore.db";
     public static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Users\\Ico\\Desktop\\GitHub\\BookStore\\" + DBNAME;
+
     public static final String TABLE_BOOKS = "books";
     public static final String COLUMN_BOOK_ID = "id";
     public static final String COLUMN_BOOK_TITLE = "title";
@@ -54,7 +55,7 @@ public class DbHandler {
     public static final String COLUMN_REQUESTS_ID = "id";
     public static final String COLUMN_REQUESTS_CLIENTID = "clientId";
     public static final String COLUMN_REQUESTS_ITEMID = "itemId";
-    public static final String COLUMN_REQUESTS_TYPE = "type";
+    public static final String COLUMN_REQUESTS_TYPE = "product";
 
     public static final int INDEX_REQUESTS_ID = 1;
     public static final int INDEX_REQUESTS_CLIENTID = 2;
@@ -80,6 +81,8 @@ public class DbHandler {
             ", " + COLUMN_BOARDGAMES_MINPLAYERS + ", " + COLUMN_BOARDGAMES_MAXPLAYERS + ", " + COLUMN_BOARDGAMES_PRICE +
             " FROM " + TABLE_BOARDGAMES + " WHERE " + COLUMN_BOARDGAMES_QUANTITY + " != 0";
 
+    public static final String QUERY_REQUESTS = "SELECT* FROM " + TABLE_REQUESTS;
+
     public static final String INSERT_BOOKS = "INSERT INTO " + TABLE_BOOKS + '(' + COLUMN_BOOK_ID + ", " + COLUMN_BOOK_TITLE +
             ", " + COLUMN_BOOK_AUTHOR + ", " + COLUMN_BOOK_QUANTITY + ", " + COLUMN_BOOK_PRICE + ") VALUES(?, ?, ?, ?, ?)";
 
@@ -90,6 +93,9 @@ public class DbHandler {
             ", " + COLUMN_BOARDGAMES_MINPLAYERS + ", " + COLUMN_BOARDGAMES_MAXPLAYERS + ", " + COLUMN_BOARDGAMES_PRICE + ", " + COLUMN_BOARDGAMES_QUANTITY +
             ") VALUES(?, ?, ?, ?, ?, ?)";
 
+    public static final String INSERT_REQUESTS = "INSERT INTO " + TABLE_REQUESTS + '(' + COLUMN_REQUESTS_ID + ", " + COLUMN_REQUESTS_CLIENTID + ", " +
+            COLUMN_REQUESTS_ITEMID + ", " + COLUMN_REQUESTS_TYPE + ") VALUES(?, ?, ?, ?)";
+
     private Connection con;
     private PreparedStatement queryAllBooks;
     private PreparedStatement insertIntoBooks;
@@ -97,6 +103,8 @@ public class DbHandler {
     private PreparedStatement insertIntoeBooks;
     private PreparedStatement queryAllBoardGames;
     private PreparedStatement insertIntoBoardGames;
+    private PreparedStatement queryAllRequests;
+    private PreparedStatement insertIntoRequests;
 
     private static DbHandler instance = new DbHandler();
 
@@ -117,6 +125,8 @@ public class DbHandler {
             insertIntoeBooks = con.prepareStatement(INSERT_EBOOKS);
             queryAllBoardGames = con.prepareStatement(QUERY_BOARDGAMES);
             insertIntoBoardGames = con.prepareStatement(INSERT_BOARDGAMES);
+            queryAllRequests = con.prepareStatement(QUERY_REQUESTS);
+            insertIntoRequests = con.prepareStatement(INSERT_REQUESTS);
             return true;
         } catch (SQLException e){
             System.out.println(e.getMessage());
@@ -144,6 +154,12 @@ public class DbHandler {
             }
             if(insertIntoBoardGames != null){
                 insertIntoBoardGames.close();
+            }
+            if(queryAllRequests != null){
+                queryAllRequests.close();
+            }
+            if(insertIntoRequests != null){
+                insertIntoRequests.close();
             }
             if(con != null){
                 con.close();
@@ -260,6 +276,45 @@ public class DbHandler {
             return null;
         }
     }
+
+    public boolean insertRequest(Request request){
+        try{
+            insertIntoRequests.setInt(1, request.getId());
+            insertIntoRequests.setInt(2, request.getClientid());
+            insertIntoRequests.setInt(3, request.getItemid());
+            insertIntoRequests.setString(4, request.getProduct());
+            int affectedRows = insertIntoRequests.executeUpdate();
+            if(affectedRows != 1){
+                return false;
+            }
+        } catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return true;
+    }
+
+    public List<Request> queryRequest(){
+        try{
+            ResultSet results = queryAllRequests.executeQuery();
+
+            List<Request> requests = new ArrayList<>();
+
+            while(results.next()){
+                Request request = new Request();
+                request.setId(results.getInt(INDEX_REQUESTS_ID));
+                request.setClientid(results.getInt(INDEX_REQUESTS_CLIENTID));
+                request.setProduct(results.getString(INDEX_REQUESTS_TYPE));
+                request.setItemid(results.getInt(INDEX_REQUESTS_ITEMID));
+
+              requests.add(request);
+            }
+            return requests;
+        } catch(SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
 
 
 
