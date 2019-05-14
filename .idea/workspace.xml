@@ -21,21 +21,23 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="7290" />
+          <entry key="java" value="7576" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="7290" />
+          <entry key="JAVA" value="7576" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="class" value="1" />
           <entry key="java" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
+          <entry key="CLASS" value="1" />
           <entry key="JAVA" value="5" />
         </counts>
       </usages-collector>
@@ -46,8 +48,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="15" column="68" selection-start-line="15" selection-start-column="68" selection-end-line="15" selection-end-column="68" />
+            <state relative-caret-position="119">
+              <caret line="10" column="43" lean-forward="true" selection-start-line="6" selection-start-column="8" selection-end-line="10" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -55,8 +57,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/DbHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="338" column="51" selection-start-line="338" selection-start-column="51" selection-end-line="338" selection-end-column="51" />
+            <state relative-caret-position="204">
+              <caret line="72" column="4" selection-start-line="72" selection-start-column="4" selection-end-line="72" selection-end-column="4" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#8565#8596#0" expanded="true" />
@@ -202,9 +204,8 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="47" />
-    <option name="y" value="267" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="73" />
     <option name="width" value="1750" />
     <option name="height" value="970" />
   </component>
@@ -241,7 +242,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557844592238" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557848098914" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/sqlite-jdbc-3.27.2.1.jar!/" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
@@ -287,18 +288,18 @@
       <option name="presentableId" value="Default" />
       <updated>1557748743474</updated>
       <workItem from="1557748751077" duration="13293000" />
-      <workItem from="1557831636136" duration="12396000" />
+      <workItem from="1557831636136" duration="15625000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25689000" />
+    <option name="totallyTimeSpent" value="28918000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="0" y="59" width="1400" height="776" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25302014" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28134328" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -307,7 +308,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.28936172" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.18973562" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.28794327" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -403,6 +404,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$PROJECT_DIR$/sqlite-jdbc-3.27.2.1.jar!/org/sqlite/core/CorePreparedStatement.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Request.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-74">
@@ -430,15 +438,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="15" column="68" selection-start-line="15" selection-start-column="68" selection-end-line="15" selection-end-column="68" />
+        <state relative-caret-position="119">
+          <caret line="10" column="43" lean-forward="true" selection-start-line="6" selection-start-column="8" selection-end-line="10" selection-end-column="43" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/DbHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="338" column="51" selection-start-line="338" selection-start-column="51" selection-end-line="338" selection-end-column="51" />
+        <state relative-caret-position="204">
+          <caret line="72" column="4" selection-start-line="72" selection-start-column="4" selection-end-line="72" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#8565#8596#0" expanded="true" />
