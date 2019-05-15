@@ -20,10 +20,10 @@ public class DbHandler {
 
     public static final int INDEX_BOOK_ID = 1;
     public static final int INDEX_BOOK_TITLE = 2;
-    public static final int INDEX_BOOK_AUTHOR= 3;
+    public static final int INDEX_BOOK_AUTHOR = 3;
 
     public static final int INDEX_BOOK_PRICE = 4;
-    public static final int INDEX_BOOK_QUANTITY= 5;
+    public static final int INDEX_BOOK_QUANTITY = 5;
 
 
     public static final String TABLE_EBOOKS = "ebooks";
@@ -34,24 +34,24 @@ public class DbHandler {
     public static final String COLUMN_EBOOK_QUANTITY = "quantity";
 
 
-    public static final  int INDEX_EBOOK_ID = 1;
-    public static final  int INDEX_EBOOK_TITLE = 2;
-    public static final  int INDEX_EBOOK_AUTHOR = 3;
-    public static final  int INDEX_EBOOK_QUANTITY= 4;
-    public static final  int INDEX_EBOOK_PRICE = 5;
+    public static final int INDEX_EBOOK_ID = 1;
+    public static final int INDEX_EBOOK_TITLE = 2;
+    public static final int INDEX_EBOOK_AUTHOR = 3;
+    public static final int INDEX_EBOOK_QUANTITY = 4;
+    public static final int INDEX_EBOOK_PRICE = 5;
 
     public static final String TABLE_BOARDGAMES = "boardgames";
     public static final String COLUMN_BOARDGAMES_ID = "id";
     public static final String COLUMN_BOARDGAMES_TITLE = "title";
-    public static final String COLUMN_BOARDGAMES_MAXPLAYERS = "maxPlayers";
     public static final String COLUMN_BOARDGAMES_MINPLAYERS = "minPlayers";
+    public static final String COLUMN_BOARDGAMES_MAXPLAYERS = "maxPlayers";
     public static final String COLUMN_BOARDGAMES_PRICE = "price";
     public static final String COLUMN_BOARDGAMES_QUANTITY = "quantity";
 
-    public static final int INDEX_BOARDGAMES_ID_= 1;
-    public static final int INDEX_BOARDGAMES_TITLE_= 2;
-    public static final int INDEX_BOARDGAMES_MINPLAYERS= 3;
-    public static final int INDEX_BOARDGAMES_MAXPLAYERS= 4;
+    public static final int INDEX_BOARDGAMES_ID = 1;
+    public static final int INDEX_BOARDGAMES_TITLE = 2;
+    public static final int INDEX_BOARDGAMES_MINPLAYERS = 3;
+    public static final int INDEX_BOARDGAMES_MAXPLAYERS = 4;
     public static final int INDEX_BOARDGAMES_PRICE = 5;
     public static final int INDEX_BOARDGAMES_QUANTITY = 6;
 
@@ -74,8 +74,7 @@ public class DbHandler {
     public static final int INDEX_CLIENTS_NAME = 2;
 
 
-
-    public static final  String QUERY_BOOKS = "SELECT " + COLUMN_BOOK_ID + ", " + COLUMN_BOOK_TITLE + ", " +
+    public static final String QUERY_BOOKS = "SELECT " + COLUMN_BOOK_ID + ", " + COLUMN_BOOK_TITLE + ", " +
             COLUMN_BOOK_AUTHOR + ", " + COLUMN_BOOK_PRICE + ", " + COLUMN_BOOK_QUANTITY + " FROM " + TABLE_BOOKS + " WHERE " +
             COLUMN_BOOK_QUANTITY + " != 0";
 
@@ -83,7 +82,7 @@ public class DbHandler {
             COLUMN_EBOOK_AUTHOR + ", " + COLUMN_EBOOK_PRICE + ", " + COLUMN_BOOK_QUANTITY + " FROM " + TABLE_EBOOKS + " WHERE " +
             COLUMN_EBOOK_QUANTITY + " != 0";
 
-    public static final  String QUERY_BOARDGAMES = "SELECT " + COLUMN_BOARDGAMES_ID + ", " + COLUMN_BOARDGAMES_TITLE +
+    public static final String QUERY_BOARDGAMES = "SELECT " + COLUMN_BOARDGAMES_ID + ", " + COLUMN_BOARDGAMES_TITLE +
             ", " + COLUMN_BOARDGAMES_MINPLAYERS + ", " + COLUMN_BOARDGAMES_MAXPLAYERS + ", " + COLUMN_BOARDGAMES_PRICE +
             " FROM " + TABLE_BOARDGAMES + " WHERE " + COLUMN_BOARDGAMES_QUANTITY + " != 0";
 
@@ -92,10 +91,10 @@ public class DbHandler {
     public static final String INSERT_BOOKS = "INSERT INTO " + TABLE_BOOKS + '(' + COLUMN_BOOK_ID + ", " + COLUMN_BOOK_TITLE +
             ", " + COLUMN_BOOK_AUTHOR + ", " + COLUMN_BOOK_QUANTITY + ", " + COLUMN_BOOK_PRICE + ") VALUES(?, ?, ?, ?, ?)";
 
-    public static final  String INSERT_EBOOKS = "INSERT INTO " + TABLE_EBOOKS + '(' + COLUMN_EBOOK_ID + ", " + COLUMN_EBOOK_TITLE +
+    public static final String INSERT_EBOOKS = "INSERT INTO " + TABLE_EBOOKS + '(' + COLUMN_EBOOK_ID + ", " + COLUMN_EBOOK_TITLE +
             ", " + COLUMN_EBOOK_AUTHOR + ", " + COLUMN_EBOOK_QUANTITY + ", " + COLUMN_EBOOK_PRICE + ") VALUES(?, ?, ?, ?, ?)";
 
-    public static final  String INSERT_BOARDGAMES = "INSERT INTO " + TABLE_BOARDGAMES + '(' + COLUMN_BOARDGAMES_ID + ", " + COLUMN_BOARDGAMES_TITLE +
+    public static final String INSERT_BOARDGAMES = "INSERT INTO " + TABLE_BOARDGAMES + '(' + COLUMN_BOARDGAMES_ID + ", " + COLUMN_BOARDGAMES_TITLE +
             ", " + COLUMN_BOARDGAMES_MINPLAYERS + ", " + COLUMN_BOARDGAMES_MAXPLAYERS + ", " + COLUMN_BOARDGAMES_PRICE + ", " + COLUMN_BOARDGAMES_QUANTITY +
             ") VALUES(?, ?, ?, ?, ?, ?)";
 
@@ -105,6 +104,21 @@ public class DbHandler {
     public static final String SEARCH_BOOK_BY_TITLE = "SELECT " + COLUMN_BOOK_ID + ", " + COLUMN_BOOK_TITLE + ", " +
             COLUMN_BOOK_AUTHOR + ", " + COLUMN_BOOK_PRICE + " FROM " + TABLE_BOOKS + " WHERE " +
             COLUMN_BOOK_TITLE + " LIKE ?";
+
+    public static final String SEARCH_BY_AUTHOR = "SELECT " + COLUMN_BOOK_ID + ", " + COLUMN_BOOK_TITLE + ", " +
+            COLUMN_BOOK_AUTHOR + ", " + COLUMN_BOOK_PRICE + " FROM " + TABLE_BOOKS + " WHERE " +
+            COLUMN_BOOK_AUTHOR + " = ?";
+
+    public static final String SEARCH_BOARDGAME_BY_TITLE = "SELECT " + COLUMN_BOARDGAMES_ID + ", " + COLUMN_BOARDGAMES_TITLE + ", " +
+            COLUMN_BOARDGAMES_MINPLAYERS + ", " + COLUMN_BOARDGAMES_MAXPLAYERS + ", " + COLUMN_BOARDGAMES_PRICE + " FROM " + TABLE_BOARDGAMES +
+            " WHERE " + COLUMN_BOARDGAMES_TITLE + " LIKE ?";
+
+    public static final String SEARCH_BOARDGAME_BY_PLAYERS = "SELECT " + COLUMN_BOARDGAMES_ID + ", " + COLUMN_BOARDGAMES_TITLE + ", " +
+            COLUMN_BOARDGAMES_MINPLAYERS + ", " + COLUMN_BOARDGAMES_MAXPLAYERS + ", " + COLUMN_BOARDGAMES_PRICE + " FROM " + TABLE_BOARDGAMES +
+            " WHERE ?" + " BETWEEN " + COLUMN_BOARDGAMES_MINPLAYERS + " AND " + COLUMN_BOARDGAMES_MAXPLAYERS;
+
+
+
 
     private Connection con;
     private PreparedStatement queryAllBooks;
@@ -116,18 +130,21 @@ public class DbHandler {
     private PreparedStatement queryAllRequests;
     private PreparedStatement insertIntoRequests;
     private PreparedStatement searchByPartOfTitle;
+    private PreparedStatement searchByAuthor;
+    private PreparedStatement searchBoardGameByTitle;
+    private PreparedStatement searchByNumOfPlayers;
 
     private static DbHandler instance = new DbHandler();
 
-    private DbHandler(){
+    private DbHandler() {
 
     }
 
-    public static DbHandler getInstance(){
+    public static DbHandler getInstance() {
         return instance;
     }
 
-    public boolean open(){
+    public boolean open() {
         try {
             con = DriverManager.getConnection(CONNECTION_STRING);
             queryAllBooks = con.prepareStatement(QUERY_BOOKS);
@@ -139,58 +156,70 @@ public class DbHandler {
             queryAllRequests = con.prepareStatement(QUERY_REQUESTS);
             insertIntoRequests = con.prepareStatement(INSERT_REQUESTS);
             searchByPartOfTitle = con.prepareStatement(SEARCH_BOOK_BY_TITLE);
+            searchByAuthor = con.prepareStatement(SEARCH_BY_AUTHOR);
+            searchBoardGameByTitle = con.prepareStatement(SEARCH_BOARDGAME_BY_TITLE);
+            searchByNumOfPlayers = con.prepareStatement(SEARCH_BOARDGAME_BY_PLAYERS);
             return true;
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
             return false;
         }
 
     }
 
-    public void close(){
+    public void close() {
         try {
-            if(queryAllBooks != null){
+            if (queryAllBooks != null) {
                 queryAllBooks.close();
             }
-            if(insertIntoBooks != null){
+            if (insertIntoBooks != null) {
                 insertIntoBooks.close();
             }
-            if(queryAlleBooks != null){
+            if (queryAlleBooks != null) {
                 queryAlleBooks.close();
             }
-            if(insertIntoeBooks != null){
+            if (insertIntoeBooks != null) {
                 insertIntoeBooks.close();
             }
-            if(queryAllBoardGames != null){
+            if (queryAllBoardGames != null) {
                 queryAllBoardGames.close();
             }
-            if(insertIntoBoardGames != null){
+            if (insertIntoBoardGames != null) {
                 insertIntoBoardGames.close();
             }
-            if(queryAllRequests != null){
+            if (queryAllRequests != null) {
                 queryAllRequests.close();
             }
-            if(insertIntoRequests != null){
+            if (insertIntoRequests != null) {
                 insertIntoRequests.close();
             }
-            if(searchByPartOfTitle != null){
+            if (searchByPartOfTitle != null) {
                 searchByPartOfTitle.close();
             }
-            if(con != null){
+            if (searchByAuthor != null) {
+                searchByAuthor.close();
+            }
+            if (searchBoardGameByTitle != null) {
+                searchBoardGameByTitle.close();
+            }
+            if(searchByNumOfPlayers != null){
+                searchByNumOfPlayers.close();
+            }
+            if (con != null) {
                 con.close();
             }
-        } catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public List<Book> queryBooks(){
-        try{
+    public List<Book> queryBooks() {
+        try {
             ResultSet results = queryAllBooks.executeQuery();
 
             List<Book> books = new ArrayList<>();
 
-            while(results.next()){
+            while (results.next()) {
                 Book book = new Book();
                 book.setId(results.getInt(INDEX_BOOK_ID));
                 book.setTitle(results.getString(INDEX_BOOK_TITLE));
@@ -201,13 +230,14 @@ public class DbHandler {
                 books.add(book);
             }
             return books;
-        } catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
         }
     }
+
     @SuppressWarnings("Duplicates")
-    public boolean insertBooks(Book book){
+    public boolean insertBooks(Book book) {
         try {
             insertIntoBooks.setInt(1, book.getId());
             insertIntoBooks.setString(2, book.getTitle());
@@ -215,10 +245,10 @@ public class DbHandler {
             insertIntoBooks.setInt(4, book.getQuantity());
             insertIntoBooks.setDouble(5, book.getPrice());
             int affectedRows = insertIntoBooks.executeUpdate();
-            if(affectedRows != 1){
+            if (affectedRows != 1) {
                 return false;
             }
-        } catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
@@ -226,13 +256,13 @@ public class DbHandler {
     }
 
 
-    public List<eBook> queryeBooks(){
-        try{
+    public List<eBook> queryeBooks() {
+        try {
             ResultSet results = queryAlleBooks.executeQuery();
 
             List<eBook> ebooks = new ArrayList<>();
 
-            while(results.next()){
+            while (results.next()) {
                 eBook ebook = new eBook();
                 ebook.setId(results.getInt(INDEX_EBOOK_ID));
                 ebook.setTitle(results.getString(INDEX_EBOOK_TITLE));
@@ -243,14 +273,14 @@ public class DbHandler {
                 ebooks.add(ebook);
             }
             return ebooks;
-        } catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
         }
     }
 
     @SuppressWarnings("Duplicates")
-    public boolean inserteBooks(eBook ebook){
+    public boolean inserteBooks(eBook ebook) {
         try {
             insertIntoeBooks.setInt(1, ebook.getId());
             insertIntoeBooks.setString(2, ebook.getTitle());
@@ -258,23 +288,23 @@ public class DbHandler {
             insertIntoeBooks.setInt(4, ebook.getQuantity());
             insertIntoeBooks.setDouble(5, ebook.getPrice());
             int affectedRows = insertIntoeBooks.executeUpdate();
-            if(affectedRows != 1){
+            if (affectedRows != 1) {
                 return false;
             }
-        } catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
         return true;
     }
 
-    public List<BoardGame> queryBoardGame(){
-        try{
+    public List<BoardGame> queryBoardGame() {
+        try {
             ResultSet results = queryAllBoardGames.executeQuery();
 
             List<BoardGame> boardGames = new ArrayList<>();
 
-            while(results.next()){
+            while (results.next()) {
                 BoardGame boardGame = new BoardGame();
                 boardGame.setId(results.getInt(INDEX_EBOOK_ID));
                 boardGame.setTitle(results.getString(INDEX_EBOOK_TITLE));
@@ -286,58 +316,58 @@ public class DbHandler {
                 boardGames.add(boardGame);
             }
             return boardGames;
-        } catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
         }
     }
 
-    public boolean insertRequest(Request request){
-        try{
+    public boolean insertRequest(Request request) {
+        try {
             insertIntoRequests.setInt(1, request.getId());
             insertIntoRequests.setInt(2, request.getClientid());
             insertIntoRequests.setInt(3, request.getItemid());
             insertIntoRequests.setString(4, request.getProduct());
             int affectedRows = insertIntoRequests.executeUpdate();
-            if(affectedRows != 1){
+            if (affectedRows != 1) {
                 return false;
             }
-        } catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return true;
     }
 
-    public List<Request> queryRequest(){
-        try{
+    public List<Request> queryRequest() {
+        try {
             ResultSet results = queryAllRequests.executeQuery();
 
             List<Request> requests = new ArrayList<>();
 
-            while(results.next()){
+            while (results.next()) {
                 Request request = new Request();
                 request.setId(results.getInt(INDEX_REQUESTS_ID));
                 request.setClientid(results.getInt(INDEX_REQUESTS_CLIENTID));
                 request.setProduct(results.getString(INDEX_REQUESTS_TYPE));
                 request.setItemid(results.getInt(INDEX_REQUESTS_ITEMID));
 
-              requests.add(request);
+                requests.add(request);
             }
             return requests;
-        } catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
         }
     }
 
-    public List<Book> searchByTitle(String title){
+    @SuppressWarnings("Duplicates")
+    public List<Book> searchByTitle(String title) {
         try {
-
             searchByPartOfTitle.setString(1, "%" + title + "%");
             ResultSet results = searchByPartOfTitle.executeQuery();
             List<Book> books = new ArrayList<>();
 
-            while(results.next()){
+            while (results.next()) {
                 Book book = new Book();
 
                 book.setId(results.getInt(INDEX_BOOK_ID));
@@ -348,16 +378,88 @@ public class DbHandler {
                 books.add(book);
             }
             return books;
-        } catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
         }
 
+    }
+
+    @SuppressWarnings("Duplicates")
+    public List<Book> searchByAuthor(String author) {
+        try {
+            searchByAuthor.setString(1, author);
+            ResultSet results = searchByAuthor.executeQuery();
+            List<Book> books = new ArrayList<>();
+            while (results.next()) {
+                Book book = new Book();
+
+                book.setId(results.getInt(INDEX_BOOK_ID));
+                book.setTitle(results.getString(INDEX_BOOK_TITLE));
+                book.setAuthor(results.getString(INDEX_BOOK_AUTHOR));
+                book.setPrice(results.getDouble(INDEX_BOOK_PRICE));
+
+                books.add(book);
+            }
+            return books;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
         }
 
+    }
+    @SuppressWarnings("Duplicates")
+    public List<BoardGame> searchBoardGameByTitle(String title){
+        try{
+            searchBoardGameByTitle.setString(1, "%" + title + "%");
+            ResultSet results = searchBoardGameByTitle.executeQuery();
+            List<BoardGame> boardGames = new ArrayList<>();
 
+            while(results.next()){
+                BoardGame boardgame = new BoardGame();
 
+                boardgame.setId(results.getInt(INDEX_BOARDGAMES_ID));
+                boardgame.setTitle(results.getString(INDEX_BOARDGAMES_TITLE));
+                boardgame.setMinPlayers(results.getInt(INDEX_BOARDGAMES_MINPLAYERS));
+                boardgame.setMaxPlayers(results.getInt(INDEX_BOARDGAMES_MAXPLAYERS));
+                boardgame.setPrice(results.getInt(INDEX_BOARDGAMES_PRICE));
+                boardGames.add(boardgame);
+            }
+            return boardGames;
+            }catch (SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    @SuppressWarnings("Duplicates")
+    public List<BoardGame> searchByNumOfPlayers(int numPlayers) {
+        try {
+            searchByNumOfPlayers.setInt(1, numPlayers);
+            ResultSet results = searchByNumOfPlayers.executeQuery();
+            List<BoardGame> boardGames = new ArrayList<>();
 
+            while (results.next()) {
+                BoardGame boardgame = new BoardGame();
 
+                boardgame.setId(results.getInt(INDEX_BOARDGAMES_ID));
+                boardgame.setTitle(results.getString(INDEX_BOARDGAMES_TITLE));
+                boardgame.setMinPlayers(results.getInt(INDEX_BOARDGAMES_MINPLAYERS));
+                boardgame.setMaxPlayers(results.getInt(INDEX_BOARDGAMES_MAXPLAYERS));
+                boardgame.setPrice(results.getInt(INDEX_BOARDGAMES_PRICE));
+                boardGames.add(boardgame);
+            }
+            return boardGames;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 
 }
+
+
+
+
+
+
+
