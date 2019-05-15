@@ -18,7 +18,10 @@ public class Main {
         //Printing the results from search
         //printResults(DbHandler.getInstance().searchByTitle("kaz"));
         // Prints whole inventory
-       // printResults(DbHandler.getInstance().queryBoardGame(), DbHandler.getInstance().queryBooks(), DbHandler.getInstance().queryeBooks());
+
+        printResults(DbHandler.getInstance().queryBoardGame(), DbHandler.getInstance().queryBooks(), DbHandler.getInstance().queryeBooks());
+        DbHandler.getInstance().purchase(14, 1, "books");
+        printResults(DbHandler.getInstance().queryBoardGame(), DbHandler.getInstance().queryBooks(), DbHandler.getInstance().queryeBooks());
 
     }
 
