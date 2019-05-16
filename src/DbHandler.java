@@ -92,23 +92,15 @@ public class DbHandler {
             ", " + COLUMN_BOOK_AUTHOR + ", " + COLUMN_BOOK_QUANTITY + ", " + COLUMN_BOOK_PRICE + ") VALUES(?, ?, ?, ?, ?)" + " ON CONFLICT(" +
             COLUMN_BOOK_ID + ") DO UPDATE SET quantity = " + COLUMN_BOOK_QUANTITY + " + ?";
 
-    //public static final String RESTOCKBOOKS =
-
-
-
-//            + " UPDATE " +
-//            TABLE_BOOKS + " SET " + COLUMN_BOOK_QUANTITY + " = " + COLUMN_BOOK_QUANTITY +
-//            COLUMN_BOOK_QUANTITY + " WHERE id = " + COLUMN_BOOK_ID + " AND WHERE title = " + COLUMN_BOOK_TITLE;
 
     public static final String INSERT_EBOOKS = "INSERT OR IGNORE INTO " + TABLE_EBOOKS + '(' + COLUMN_EBOOK_ID + ", " + COLUMN_EBOOK_TITLE +
-            ", " + COLUMN_EBOOK_AUTHOR + ", " + COLUMN_EBOOK_QUANTITY + ", " + COLUMN_EBOOK_PRICE + ") VALUES(?, ?, ?, ?, ?);" + "UPDATE "
-            + TABLE_EBOOKS + " SET " + COLUMN_EBOOK_QUANTITY + " = " + COLUMN_EBOOK_QUANTITY +
-            " + ?" + " WHERE id = ?" ;
+            ", " + COLUMN_EBOOK_AUTHOR + ", " + COLUMN_EBOOK_QUANTITY + ", " + COLUMN_EBOOK_PRICE + ") VALUES(?, ?, ?, ?, ?)"   + " ON CONFLICT(" +
+            COLUMN_EBOOK_ID + ") DO UPDATE SET quantity = " + COLUMN_EBOOK_QUANTITY + " + ?";
 
     public static final String INSERT_BOARDGAMES = "INSERT OR IGNORE INTO " + TABLE_BOARDGAMES + '(' + COLUMN_BOARDGAMES_ID + ", " + COLUMN_BOARDGAMES_TITLE +
             ", " + COLUMN_BOARDGAMES_MINPLAYERS + ", " + COLUMN_BOARDGAMES_MAXPLAYERS + ", " + COLUMN_BOARDGAMES_PRICE + ", " + COLUMN_BOARDGAMES_QUANTITY +
-            ") VALUES(?, ?, ?, ?, ?, ?);" +"UPDATE " + TABLE_BOARDGAMES + " SET " + COLUMN_BOARDGAMES_QUANTITY + " = " + COLUMN_BOARDGAMES_QUANTITY +
-            " + ?" + " WHERE id = ?";
+            ") VALUES(?, ?, ?, ?, ?, ?)" + " ON CONFLICT(" +
+            COLUMN_BOARDGAMES_ID + ") DO UPDATE SET quantity = " + COLUMN_BOARDGAMES_QUANTITY + " + ?";
 
     public static final String INSERT_REQUESTS = "INSERT INTO " + TABLE_REQUESTS + '(' + COLUMN_REQUESTS_ID + ", " + COLUMN_REQUESTS_CLIENTID + ", " +
             COLUMN_REQUESTS_ITEMID + ", " + COLUMN_REQUESTS_TYPE + ") VALUES(?, ?, ?, ?)";
@@ -272,13 +264,14 @@ public class DbHandler {
     }
 
     @SuppressWarnings("Duplicates")
-    public boolean insertBooks(Book book) {
+    public boolean insertBooks(Book book, int quont) {
         try {
             insertIntoBooks.setInt(1, book.getId());
             insertIntoBooks.setString(2, book.getTitle());
             insertIntoBooks.setString(3, book.getAuthor());
             insertIntoBooks.setInt(4, book.getQuantity());
             insertIntoBooks.setDouble(5, book.getPrice());
+            insertIntoBooks.setInt(6, quont);
             int affectedRows = insertIntoBooks.executeUpdate();
             if (affectedRows != 1) {
                 return false;
@@ -315,13 +308,14 @@ public class DbHandler {
     }
 
     @SuppressWarnings("Duplicates")
-    public boolean inserteBooks(eBook ebook) {
+    public boolean inserteBooks(eBook ebook, int quont) {
         try {
             insertIntoeBooks.setInt(1, ebook.getId());
             insertIntoeBooks.setString(2, ebook.getTitle());
             insertIntoeBooks.setString(3, ebook.getAuthor());
             insertIntoeBooks.setInt(4, ebook.getQuantity());
             insertIntoeBooks.setDouble(5, ebook.getPrice());
+            insertIntoeBooks.setInt(6, quont);
             int affectedRows = insertIntoeBooks.executeUpdate();
             if (affectedRows != 1) {
                 return false;
@@ -355,6 +349,25 @@ public class DbHandler {
             System.out.println(e.getMessage());
             return null;
         }
+    }
+    @SuppressWarnings("Duplicates")
+    public boolean insertBoardGames(eBook ebook, int quont) {
+        try {
+            insertIntoBoardGames.setInt(1, ebook.getId());
+            insertIntoBoardGames.setString(2, ebook.getTitle());
+            insertIntoBoardGames.setString(3, ebook.getAuthor());
+            insertIntoBoardGames.setInt(4, ebook.getQuantity());
+            insertIntoBoardGames.setDouble(5, ebook.getPrice());
+            insertIntoBoardGames.setInt(6, quont);
+            int affectedRows = insertIntoBoardGames.executeUpdate();
+            if (affectedRows != 1) {
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return true;
     }
 
     public boolean insertRequest(Request request) {

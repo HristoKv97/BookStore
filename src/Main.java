@@ -14,7 +14,7 @@ public class Main {
         book.setQuantity(10);
 //
 //
-       DbHandler.getInstance().insertBooks(book);
+       DbHandler.getInstance().insertBooks(book, book.getQuantity());
         //System.out.println("ID Title Author Price Quantity");
         //Printing the results from search
         //printResults(DbHandler.getInstance().searchByTitle("kaz"));
