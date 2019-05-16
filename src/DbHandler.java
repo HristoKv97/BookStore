@@ -117,7 +117,9 @@ public class DbHandler {
             COLUMN_BOARDGAMES_MINPLAYERS + ", " + COLUMN_BOARDGAMES_MAXPLAYERS + ", " + COLUMN_BOARDGAMES_PRICE + " FROM " + TABLE_BOARDGAMES +
             " WHERE ?" + " BETWEEN " + COLUMN_BOARDGAMES_MINPLAYERS + " AND " + COLUMN_BOARDGAMES_MAXPLAYERS;
 
-    public static final String MAKE_A_PURCHASE = "UPDATE ? SET quantity = (quantity - ?) WHERE id = ?";
+
+    public static final String BUY_A_BOOK = "UPDATE " + TABLE_BOOKS + " SET " + COLUMN_BOOK_QUANTITY + " = " + COLUMN_BOOK_QUANTITY +
+            " - ?" + " WHERE id = ?";
 
 
 
@@ -135,7 +137,7 @@ public class DbHandler {
     private PreparedStatement searchByAuthor;
     private PreparedStatement searchBoardGameByTitle;
     private PreparedStatement searchByNumOfPlayers;
-    private PreparedStatement makeAPurchase;
+    private PreparedStatement buyABook;
 
     private static DbHandler instance = new DbHandler();
 
@@ -162,7 +164,7 @@ public class DbHandler {
             searchByAuthor = con.prepareStatement(SEARCH_BY_AUTHOR);
             searchBoardGameByTitle = con.prepareStatement(SEARCH_BOARDGAME_BY_TITLE);
             searchByNumOfPlayers = con.prepareStatement(SEARCH_BOARDGAME_BY_PLAYERS);
-            makeAPurchase = con.prepareStatement(MAKE_A_PURCHASE);
+            buyABook = con.prepareStatement(BUY_A_BOOK);
             return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -209,8 +211,8 @@ public class DbHandler {
             if(searchByNumOfPlayers != null){
                 searchByNumOfPlayers.close();
             }
-            if(makeAPurchase != null){
-                makeAPurchase.close();
+            if(buyABook != null){
+                buyABook.close();
             }
             if (con != null) {
                 con.close();
@@ -462,13 +464,13 @@ public class DbHandler {
         }
     }
 
-    public void purchase(int id,int quantity, String type){
+    public void buyABook(int id, int quantity){
         try{
 
-            makeAPurchase.setString(1, type);
-            makeAPurchase.setInt(2, quantity);
-            makeAPurchase.setInt(3, id);
-            makeAPurchase.executeQuery();
+            buyABook.setInt(1, quantity);
+            buyABook.setInt(2, id);
+
+            buyABook.executeUpdate();
 
         } catch (SQLException e){
             System.out.println(e.getMessage());

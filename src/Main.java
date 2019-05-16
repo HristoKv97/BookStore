@@ -20,7 +20,7 @@ public class Main {
         // Prints whole inventory
 
         printResults(DbHandler.getInstance().queryBoardGame(), DbHandler.getInstance().queryBooks(), DbHandler.getInstance().queryeBooks());
-        DbHandler.getInstance().purchase(14, 1, "books");
+        DbHandler.getInstance().buyABook(14, 5);
         printResults(DbHandler.getInstance().queryBoardGame(), DbHandler.getInstance().queryBooks(), DbHandler.getInstance().queryeBooks());
 
     }
