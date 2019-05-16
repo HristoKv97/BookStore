@@ -88,15 +88,27 @@ public class DbHandler {
 
     public static final String QUERY_REQUESTS = "SELECT* FROM " + TABLE_REQUESTS;
 
-    public static final String INSERT_BOOKS = "INSERT INTO " + TABLE_BOOKS + '(' + COLUMN_BOOK_ID + ", " + COLUMN_BOOK_TITLE +
-            ", " + COLUMN_BOOK_AUTHOR + ", " + COLUMN_BOOK_QUANTITY + ", " + COLUMN_BOOK_PRICE + ") VALUES(?, ?, ?, ?, ?)";
+    public static final String INSERT_BOOKS = "INSERT OR IGNORE INTO " + TABLE_BOOKS + '(' + COLUMN_BOOK_ID + ", " + COLUMN_BOOK_TITLE +
+            ", " + COLUMN_BOOK_AUTHOR + ", " + COLUMN_BOOK_QUANTITY + ", " + COLUMN_BOOK_PRICE + ") VALUES(?, ?, ?, ?, ?)" + " ON CONFLICT(" +
+            COLUMN_BOOK_ID + ") DO UPDATE SET quantity = " + COLUMN_BOOK_QUANTITY + " + ?";
 
-    public static final String INSERT_EBOOKS = "INSERT INTO " + TABLE_EBOOKS + '(' + COLUMN_EBOOK_ID + ", " + COLUMN_EBOOK_TITLE +
-            ", " + COLUMN_EBOOK_AUTHOR + ", " + COLUMN_EBOOK_QUANTITY + ", " + COLUMN_EBOOK_PRICE + ") VALUES(?, ?, ?, ?, ?)";
+    //public static final String RESTOCKBOOKS =
 
-    public static final String INSERT_BOARDGAMES = "INSERT INTO " + TABLE_BOARDGAMES + '(' + COLUMN_BOARDGAMES_ID + ", " + COLUMN_BOARDGAMES_TITLE +
+
+
+//            + " UPDATE " +
+//            TABLE_BOOKS + " SET " + COLUMN_BOOK_QUANTITY + " = " + COLUMN_BOOK_QUANTITY +
+//            COLUMN_BOOK_QUANTITY + " WHERE id = " + COLUMN_BOOK_ID + " AND WHERE title = " + COLUMN_BOOK_TITLE;
+
+    public static final String INSERT_EBOOKS = "INSERT OR IGNORE INTO " + TABLE_EBOOKS + '(' + COLUMN_EBOOK_ID + ", " + COLUMN_EBOOK_TITLE +
+            ", " + COLUMN_EBOOK_AUTHOR + ", " + COLUMN_EBOOK_QUANTITY + ", " + COLUMN_EBOOK_PRICE + ") VALUES(?, ?, ?, ?, ?);" + "UPDATE "
+            + TABLE_EBOOKS + " SET " + COLUMN_EBOOK_QUANTITY + " = " + COLUMN_EBOOK_QUANTITY +
+            " + ?" + " WHERE id = ?" ;
+
+    public static final String INSERT_BOARDGAMES = "INSERT OR IGNORE INTO " + TABLE_BOARDGAMES + '(' + COLUMN_BOARDGAMES_ID + ", " + COLUMN_BOARDGAMES_TITLE +
             ", " + COLUMN_BOARDGAMES_MINPLAYERS + ", " + COLUMN_BOARDGAMES_MAXPLAYERS + ", " + COLUMN_BOARDGAMES_PRICE + ", " + COLUMN_BOARDGAMES_QUANTITY +
-            ") VALUES(?, ?, ?, ?, ?, ?)";
+            ") VALUES(?, ?, ?, ?, ?, ?);" +"UPDATE " + TABLE_BOARDGAMES + " SET " + COLUMN_BOARDGAMES_QUANTITY + " = " + COLUMN_BOARDGAMES_QUANTITY +
+            " + ?" + " WHERE id = ?";
 
     public static final String INSERT_REQUESTS = "INSERT INTO " + TABLE_REQUESTS + '(' + COLUMN_REQUESTS_ID + ", " + COLUMN_REQUESTS_CLIENTID + ", " +
             COLUMN_REQUESTS_ITEMID + ", " + COLUMN_REQUESTS_TYPE + ") VALUES(?, ?, ?, ?)";
@@ -117,9 +129,13 @@ public class DbHandler {
             COLUMN_BOARDGAMES_MINPLAYERS + ", " + COLUMN_BOARDGAMES_MAXPLAYERS + ", " + COLUMN_BOARDGAMES_PRICE + " FROM " + TABLE_BOARDGAMES +
             " WHERE ?" + " BETWEEN " + COLUMN_BOARDGAMES_MINPLAYERS + " AND " + COLUMN_BOARDGAMES_MAXPLAYERS;
 
-
     public static final String BUY_A_BOOK = "UPDATE " + TABLE_BOOKS + " SET " + COLUMN_BOOK_QUANTITY + " = " + COLUMN_BOOK_QUANTITY +
             " - ?" + " WHERE id = ?";
+    public static final String BUY_AN_EBOOK = "UPDATE " + TABLE_EBOOKS + " SET " + COLUMN_EBOOK_QUANTITY + " = " + COLUMN_EBOOK_QUANTITY +
+            " - ?" + " WHERE id = ?";
+    public static final String BUY_A_BOARDGAME = "UPDATE " + TABLE_BOARDGAMES + " SET " + COLUMN_BOARDGAMES_QUANTITY + " = " + COLUMN_BOARDGAMES_QUANTITY +
+            " - ?" + " WHERE id = ?";
+
 
 
 
@@ -138,6 +154,8 @@ public class DbHandler {
     private PreparedStatement searchBoardGameByTitle;
     private PreparedStatement searchByNumOfPlayers;
     private PreparedStatement buyABook;
+    private PreparedStatement buyAnEbook;
+    private PreparedStatement buyABoardGame;
 
     private static DbHandler instance = new DbHandler();
 
@@ -165,6 +183,8 @@ public class DbHandler {
             searchBoardGameByTitle = con.prepareStatement(SEARCH_BOARDGAME_BY_TITLE);
             searchByNumOfPlayers = con.prepareStatement(SEARCH_BOARDGAME_BY_PLAYERS);
             buyABook = con.prepareStatement(BUY_A_BOOK);
+            buyAnEbook = con.prepareStatement(BUY_AN_EBOOK);
+            buyABoardGame = con.prepareStatement(BUY_A_BOARDGAME);
             return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -213,6 +233,12 @@ public class DbHandler {
             }
             if(buyABook != null){
                 buyABook.close();
+            }
+            if(buyAnEbook != null){
+                buyAnEbook.close();
+            }
+            if(buyABoardGame != null){
+                buyABoardGame.close();
             }
             if (con != null) {
                 con.close();
@@ -463,7 +489,7 @@ public class DbHandler {
             return null;
         }
     }
-
+    @SuppressWarnings("Duplicates")
     public void buyABook(int id, int quantity){
         try{
 
@@ -476,6 +502,36 @@ public class DbHandler {
             System.out.println(e.getMessage());
         }
     }
+    @SuppressWarnings("Duplicates")
+    public void buyAnEBook(int id, int quantity){
+        try{
+
+            buyAnEbook.setInt(1, quantity);
+            buyAnEbook.setInt(2, id);
+
+            buyAnEbook.executeUpdate();
+
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    @SuppressWarnings("Duplicates")
+    public void buyABoardGame(int id, int quantity){
+        try{
+
+            buyABoardGame.setInt(1, quantity);
+            buyABoardGame.setInt(2, id);
+
+            buyABoardGame.executeUpdate();
+
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+
+
 
 }
 

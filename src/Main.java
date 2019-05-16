@@ -6,22 +6,23 @@ public class Main {
 
         //submitting a request
        DbHandler.getInstance().open();
-//        Request request = new Request();
-//        request.setId(9);
-//        request.setItemid(11);
-//        request.setClientid(13);
-//        request.setProduct("asdasdasdasd");
+       Book book = new Book();
+        book.setId(9);
+        book.setTitle(" IVAN STOQN");
+        book.setAuthor(" DDZ ");
+        book.setPrice(160);
+        book.setQuantity(10);
 //
 //
-//        //DbHandler.getInstance().insertRequest(request);
+       DbHandler.getInstance().insertBooks(book);
         //System.out.println("ID Title Author Price Quantity");
         //Printing the results from search
         //printResults(DbHandler.getInstance().searchByTitle("kaz"));
         // Prints whole inventory
 
-        printResults(DbHandler.getInstance().queryBoardGame(), DbHandler.getInstance().queryBooks(), DbHandler.getInstance().queryeBooks());
-        DbHandler.getInstance().buyABook(14, 5);
-        printResults(DbHandler.getInstance().queryBoardGame(), DbHandler.getInstance().queryBooks(), DbHandler.getInstance().queryeBooks());
+        //printResults(DbHandler.getInstance().queryBoardGame(), DbHandler.getInstance().queryBooks(), DbHandler.getInstance().queryeBooks());
+        //DbHandler.getInstance().buyABook(14, 5);
+        //printResults(DbHandler.getInstance().queryBoardGame(), DbHandler.getInstance().queryBooks(), DbHandler.getInstance().queryeBooks());
 
     }
 
