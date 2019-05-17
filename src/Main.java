@@ -7,7 +7,7 @@ public class Main {
         //submitting a request
 
 
-       DbHandler.getInstance().open();
+       //DbHandler.getInstance().open();
 //       eBook ebook = new eBook();
 //        ebook.setId(4);
 //        ebook.setTitle("dada12");
