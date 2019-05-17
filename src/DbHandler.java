@@ -58,13 +58,15 @@ public class DbHandler {
     public static final String TABLE_REQUESTS = "requests";
     public static final String COLUMN_REQUESTS_ID = "id";
     public static final String COLUMN_REQUESTS_CLIENTID = "clientId";
-    public static final String COLUMN_REQUESTS_ITEMID = "itemId";
+    public static final String COLUMN_REQUESTS_ITEM_NAME = "itemName";
+    public static final String COLUMN_REQUESTS_ITEM_AUTHOR = "itemAuthor";
     public static final String COLUMN_REQUESTS_TYPE = "product";
 
     public static final int INDEX_REQUESTS_ID = 1;
     public static final int INDEX_REQUESTS_CLIENTID = 2;
-    public static final int INDEX_REQUESTS_ITEMID = 3;
-    public static final int INDEX_REQUESTS_TYPE = 4;
+    public static final int INDEX_REQUESTS_ITEM_NAME = 3;
+    public static final int INDEX_REQUESTS_ITEM_AUTHOR = 4;
+    public static final int INDEX_REQUESTS_TYPE = 5;
 
     public static final String TABLE_CLIENTS = "clients";
     public static final String COLUMN_CLIENTS_ID = "id";
@@ -103,7 +105,7 @@ public class DbHandler {
             COLUMN_BOARDGAMES_ID + ") DO UPDATE SET quantity = " + COLUMN_BOARDGAMES_QUANTITY + " + ?";
 
     public static final String INSERT_REQUESTS = "INSERT INTO " + TABLE_REQUESTS + '(' + COLUMN_REQUESTS_ID + ", " + COLUMN_REQUESTS_CLIENTID + ", " +
-            COLUMN_REQUESTS_ITEMID + ", " + COLUMN_REQUESTS_TYPE + ") VALUES(?, ?, ?, ?)";
+            COLUMN_REQUESTS_ITEM_NAME + ", " + COLUMN_REQUESTS_ITEM_AUTHOR + ", " + COLUMN_REQUESTS_TYPE + ") VALUES(?, ?, ?, ?, ?)";
 
     public static final String SEARCH_BOOK_BY_TITLE = "SELECT " + COLUMN_BOOK_ID + ", " + COLUMN_BOOK_TITLE + ", " +
             COLUMN_BOOK_AUTHOR + ", " + COLUMN_BOOK_PRICE + " FROM " + TABLE_BOOKS + " WHERE " +
@@ -128,6 +130,9 @@ public class DbHandler {
     public static final String BUY_A_BOARDGAME = "UPDATE " + TABLE_BOARDGAMES + " SET " + COLUMN_BOARDGAMES_QUANTITY + " = " + COLUMN_BOARDGAMES_QUANTITY +
             " - ?" + " WHERE id = ?";
 
+    public static final String DELETE_A_REQUEST = "DELETE FROM " + TABLE_REQUESTS + " WHERE " +
+            COLUMN_REQUESTS_TYPE + " = ? AND " + COLUMN_REQUESTS_ITEM_NAME +  " = ? AND " + COLUMN_REQUESTS_ITEM_AUTHOR +
+            " = ?";
 
 
 
@@ -148,6 +153,7 @@ public class DbHandler {
     private PreparedStatement buyABook;
     private PreparedStatement buyAnEbook;
     private PreparedStatement buyABoardGame;
+    private PreparedStatement deleteARequest;
 
     private static DbHandler instance = new DbHandler();
 
@@ -177,6 +183,7 @@ public class DbHandler {
             buyABook = con.prepareStatement(BUY_A_BOOK);
             buyAnEbook = con.prepareStatement(BUY_AN_EBOOK);
             buyABoardGame = con.prepareStatement(BUY_A_BOARDGAME);
+            deleteARequest = con.prepareStatement(DELETE_A_REQUEST);
             return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -232,6 +239,9 @@ public class DbHandler {
             if(buyABoardGame != null){
                 buyABoardGame.close();
             }
+            if(deleteARequest != null){
+                deleteARequest.close();
+            }
             if (con != null) {
                 con.close();
             }
@@ -264,14 +274,20 @@ public class DbHandler {
     }
 
     @SuppressWarnings("Duplicates")
-    public boolean insertBooks(Book book, int quont) {
+    public boolean insertBooks(Book book) {
         try {
             insertIntoBooks.setInt(1, book.getId());
             insertIntoBooks.setString(2, book.getTitle());
             insertIntoBooks.setString(3, book.getAuthor());
             insertIntoBooks.setInt(4, book.getQuantity());
             insertIntoBooks.setDouble(5, book.getPrice());
-            insertIntoBooks.setInt(6, quont);
+            insertIntoBooks.setInt(6, book.getQuantity());
+
+            deleteARequest.setString(1, "books");
+            deleteARequest.setString(2, book.getTitle());
+            deleteARequest.setString(3, book.getAuthor());
+            deleteARequest.executeUpdate();
+
             int affectedRows = insertIntoBooks.executeUpdate();
             if (affectedRows != 1) {
                 return false;
@@ -316,6 +332,12 @@ public class DbHandler {
             insertIntoeBooks.setInt(4, ebook.getQuantity());
             insertIntoeBooks.setDouble(5, ebook.getPrice());
             insertIntoeBooks.setInt(6, quont);
+
+            deleteARequest.setString(1, "еbooks");
+            deleteARequest.setString(2, ebook.getTitle());
+            deleteARequest.setString(3, ebook.getAuthor());
+            deleteARequest.executeUpdate();
+
             int affectedRows = insertIntoeBooks.executeUpdate();
             if (affectedRows != 1) {
                 return false;
@@ -351,14 +373,20 @@ public class DbHandler {
         }
     }
     @SuppressWarnings("Duplicates")
-    public boolean insertBoardGames(eBook ebook, int quont) {
+    public boolean insertBoardGames(BoardGame boardGame, int quont) {
         try {
-            insertIntoBoardGames.setInt(1, ebook.getId());
-            insertIntoBoardGames.setString(2, ebook.getTitle());
-            insertIntoBoardGames.setString(3, ebook.getAuthor());
-            insertIntoBoardGames.setInt(4, ebook.getQuantity());
-            insertIntoBoardGames.setDouble(5, ebook.getPrice());
-            insertIntoBoardGames.setInt(6, quont);
+            insertIntoBoardGames.setInt(1, boardGame.getId());
+            insertIntoBoardGames.setString(2, boardGame.getTitle());
+            insertIntoBoardGames.setInt(3, boardGame.getMinPlayers());
+            insertIntoBoardGames.setInt(4, boardGame.getMaxPlayers());
+            insertIntoBoardGames.setDouble(5, boardGame.getPrice());
+            insertIntoBoardGames.setInt(6, boardGame.getQuantity());
+            insertIntoBoardGames.setInt(7, quont);
+
+            deleteARequest.setString(1, "boardgames");
+            deleteARequest.setString(2, boardGame.getTitle());
+
+            deleteARequest.executeUpdate();
             int affectedRows = insertIntoBoardGames.executeUpdate();
             if (affectedRows != 1) {
                 return false;
@@ -374,8 +402,9 @@ public class DbHandler {
         try {
             insertIntoRequests.setInt(1, request.getId());
             insertIntoRequests.setInt(2, request.getClientid());
-            insertIntoRequests.setInt(3, request.getItemid());
-            insertIntoRequests.setString(4, request.getProduct());
+            insertIntoRequests.setString(3, request.getItemName());
+            insertIntoRequests.setString(4, request.getItemAuthor());
+            insertIntoRequests.setString(5, request.getProduct());
             int affectedRows = insertIntoRequests.executeUpdate();
             if (affectedRows != 1) {
                 return false;
@@ -397,7 +426,8 @@ public class DbHandler {
                 request.setId(results.getInt(INDEX_REQUESTS_ID));
                 request.setClientid(results.getInt(INDEX_REQUESTS_CLIENTID));
                 request.setProduct(results.getString(INDEX_REQUESTS_TYPE));
-                request.setItemid(results.getInt(INDEX_REQUESTS_ITEMID));
+                request.setItemName(results.getString(INDEX_REQUESTS_ITEM_NAME));
+                request.setItemAuthor(results.getString(INDEX_REQUESTS_ITEM_AUTHOR));
 
                 requests.add(request);
             }

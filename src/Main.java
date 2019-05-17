@@ -7,14 +7,14 @@ public class Main {
         //submitting a request
        DbHandler.getInstance().open();
        Book book = new Book();
-        book.setId(9);
-        book.setTitle(" IVAN STOQN");
-        book.setAuthor(" DDZ ");
-        book.setPrice(160);
-        book.setQuantity(10);
+        book.setId(15);
+        book.setTitle("Prikazki");
+        book.setAuthor("Asen Kop");
+        book.setPrice(22);
+        book.setQuantity(15);
 //
 //
-       DbHandler.getInstance().insertBooks(book, book.getQuantity());
+       DbHandler.getInstance().insertBooks(book);
         //System.out.println("ID Title Author Price Quantity");
         //Printing the results from search
         //printResults(DbHandler.getInstance().searchByTitle("kaz"));

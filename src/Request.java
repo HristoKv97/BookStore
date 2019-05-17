@@ -1,7 +1,26 @@
 public class Request {
     private int id;
     private String product;
-    private int itemid;
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public String getItemAuthor() {
+        return itemAuthor;
+    }
+
+    public void setItemAuthor(String itemAuthor) {
+        this.itemAuthor = itemAuthor;
+    }
+
+    private String itemName;
+    private String itemAuthor;
+
     private int clientid;
 
     public int getId() {
@@ -20,13 +39,7 @@ public class Request {
         this.product = product;
     }
 
-    public int getItemid() {
-        return itemid;
-    }
 
-    public void setItemid(int itemid) {
-        this.itemid = itemid;
-    }
 
     public int getClientid() {
         return clientid;
