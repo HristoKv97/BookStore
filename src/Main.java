@@ -5,16 +5,18 @@ public class Main {
     public static void main(String[] args) {
 
         //submitting a request
+
+
        DbHandler.getInstance().open();
-       Book book = new Book();
-        book.setId(15);
-        book.setTitle("Prikazki");
-        book.setAuthor("Asen Kop");
-        book.setPrice(22);
-        book.setQuantity(15);
+//       eBook ebook = new eBook();
+//        ebook.setId(4);
+//        ebook.setTitle("dada12");
+//        ebook.setAuthor("dada12");
+//        ebook.setPrice(23);
+//        ebook.setQuantity(10);
 //
 //
-       DbHandler.getInstance().insertBooks(book);
+       //DbHandler.getInstance().inserteBooks(ebook);
         //System.out.println("ID Title Author Price Quantity");
         //Printing the results from search
         //printResults(DbHandler.getInstance().searchByTitle("kaz"));

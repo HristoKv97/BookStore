@@ -107,6 +107,9 @@ public class DbHandler {
     public static final String INSERT_REQUESTS = "INSERT INTO " + TABLE_REQUESTS + '(' + COLUMN_REQUESTS_ID + ", " + COLUMN_REQUESTS_CLIENTID + ", " +
             COLUMN_REQUESTS_ITEM_NAME + ", " + COLUMN_REQUESTS_ITEM_AUTHOR + ", " + COLUMN_REQUESTS_TYPE + ") VALUES(?, ?, ?, ?, ?)";
 
+    public static final  String CREATE_CLIENT = "INSERT OR IGNORE INTO " + TABLE_CLIENTS + '(' + COLUMN_CLIENTS_ID + ", " + COLUMN_CLIENTS_NAME +
+            ") VALUES (?, ?)";
+
     public static final String SEARCH_BOOK_BY_TITLE = "SELECT " + COLUMN_BOOK_ID + ", " + COLUMN_BOOK_TITLE + ", " +
             COLUMN_BOOK_AUTHOR + ", " + COLUMN_BOOK_PRICE + " FROM " + TABLE_BOOKS + " WHERE " +
             COLUMN_BOOK_TITLE + " LIKE ?";
@@ -154,6 +157,7 @@ public class DbHandler {
     private PreparedStatement buyAnEbook;
     private PreparedStatement buyABoardGame;
     private PreparedStatement deleteARequest;
+    private PreparedStatement createAClient;
 
     private static DbHandler instance = new DbHandler();
 
@@ -184,6 +188,8 @@ public class DbHandler {
             buyAnEbook = con.prepareStatement(BUY_AN_EBOOK);
             buyABoardGame = con.prepareStatement(BUY_A_BOARDGAME);
             deleteARequest = con.prepareStatement(DELETE_A_REQUEST);
+            createAClient = con.prepareStatement(CREATE_CLIENT);
+
             return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -242,6 +248,9 @@ public class DbHandler {
             if(deleteARequest != null){
                 deleteARequest.close();
             }
+            if(createAClient != null){
+                createAClient.close();
+            }
             if (con != null) {
                 con.close();
             }
@@ -271,6 +280,21 @@ public class DbHandler {
             System.out.println(e.getMessage());
             return null;
         }
+    }
+
+    public boolean createClient(Client client){
+        try{
+            createAClient.setInt(1, client.getId());
+            createAClient.setString(2, client.getName());
+
+            int affectedRows = createAClient.executeUpdate();
+            if (affectedRows != 1) {
+                return false;
+            }
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return true;
     }
 
     @SuppressWarnings("Duplicates")
@@ -324,14 +348,14 @@ public class DbHandler {
     }
 
     @SuppressWarnings("Duplicates")
-    public boolean inserteBooks(eBook ebook, int quont) {
+    public boolean inserteBooks(eBook ebook) {
         try {
             insertIntoeBooks.setInt(1, ebook.getId());
             insertIntoeBooks.setString(2, ebook.getTitle());
             insertIntoeBooks.setString(3, ebook.getAuthor());
             insertIntoeBooks.setInt(4, ebook.getQuantity());
             insertIntoeBooks.setDouble(5, ebook.getPrice());
-            insertIntoeBooks.setInt(6, quont);
+            insertIntoeBooks.setInt(6, ebook.getQuantity());
 
             deleteARequest.setString(1, "еbooks");
             deleteARequest.setString(2, ebook.getTitle());
