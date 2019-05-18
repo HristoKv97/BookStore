@@ -1,4 +1,11 @@
 public class eBook {
+
+    private int id;
+    private String title;
+    private String author;
+    private int quantity;
+    private double price;
+
     public int getId() {
         return id;
     }
@@ -39,9 +46,5 @@ public class eBook {
         this.price = price;
     }
 
-    private int id;
-    private String title;
-    private String author;
-    private int quantity;
-    private double price;
+
 }

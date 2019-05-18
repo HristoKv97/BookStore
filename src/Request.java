@@ -1,6 +1,9 @@
 public class Request {
     private int id;
     private String product;
+    private String itemName;
+    private String itemAuthor;
+    private int clientid;
 
     public String getItemName() {
         return itemName;
@@ -18,10 +21,7 @@ public class Request {
         this.itemAuthor = itemAuthor;
     }
 
-    private String itemName;
-    private String itemAuthor;
 
-    private int clientid;
 
     public int getId() {
         return id;

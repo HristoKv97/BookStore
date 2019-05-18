@@ -1,6 +1,10 @@
 public class BoardGame {
     private int id;
     private String title;
+    private int quantity;
+    private int maxPlayers;
+    private int minPlayers;
+    private double price;
 
     public int getId() {
         return id;
@@ -50,8 +54,5 @@ public class BoardGame {
         this.price = price;
     }
 
-    private int quantity;
-    private int maxPlayers;
-    private int minPlayers;
-    private double price;
+
 }

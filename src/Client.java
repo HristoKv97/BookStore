@@ -1,5 +1,6 @@
 public class Client {
     private int id;
+    private String name;
 
     public int getId() {
         return id;
@@ -17,5 +18,5 @@ public class Client {
         this.name = name;
     }
 
-    private String name;
+
 }
