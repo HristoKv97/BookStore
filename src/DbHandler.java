@@ -75,6 +75,7 @@ public class DbHandler {
     public static final int INDEX_CLIENTS_ID = 1;
     public static final int INDEX_CLIENTS_NAME = 2;
 
+    //   ------------------- Prepared Statements -------------------
 
     public static final String QUERY_BOOKS = "SELECT " + COLUMN_BOOK_ID + ", " + COLUMN_BOOK_TITLE + ", " +
             COLUMN_BOOK_AUTHOR + ", " + COLUMN_BOOK_PRICE + ", " + COLUMN_BOOK_QUANTITY + " FROM " + TABLE_BOOKS + " WHERE " +
@@ -259,6 +260,7 @@ public class DbHandler {
         }
     }
 
+    // Printing all books and their properties
     public List<Book> queryBooks() {
         try {
             ResultSet results = queryAllBooks.executeQuery();
@@ -282,6 +284,7 @@ public class DbHandler {
         }
     }
 
+    // Adds client to DB
     public boolean createClient(Client client){
         try{
             createAClient.setInt(1, client.getId());
@@ -296,7 +299,7 @@ public class DbHandler {
         }
         return true;
     }
-
+    // Adds book to DB, if book is already in DB, adds just quantity and deletes client request if available
     @SuppressWarnings("Duplicates")
     public boolean insertBooks(Book book) {
         try {
@@ -323,7 +326,7 @@ public class DbHandler {
         return true;
     }
 
-
+    // Printing all ebooks and their properties
     public List<eBook> queryeBooks() {
         try {
             ResultSet results = queryAlleBooks.executeQuery();
@@ -346,7 +349,7 @@ public class DbHandler {
             return null;
         }
     }
-
+    // Adds ebook to DB, if book is already in DB, adds just quantity and deletes client request if available
     @SuppressWarnings("Duplicates")
     public boolean inserteBooks(eBook ebook) {
         try {
@@ -372,7 +375,7 @@ public class DbHandler {
 
         return true;
     }
-
+    // Printing all board games and their properties
     public List<BoardGame> queryBoardGame() {
         try {
             ResultSet results = queryAllBoardGames.executeQuery();
@@ -396,8 +399,9 @@ public class DbHandler {
             return null;
         }
     }
+    // Adds board game to DB, if book is already in DB, adds just quantity and deletes client request if available
     @SuppressWarnings("Duplicates")
-    public boolean insertBoardGames(BoardGame boardGame, int quont) {
+    public boolean insertBoardGames(BoardGame boardGame) {
         try {
             insertIntoBoardGames.setInt(1, boardGame.getId());
             insertIntoBoardGames.setString(2, boardGame.getTitle());
@@ -405,7 +409,7 @@ public class DbHandler {
             insertIntoBoardGames.setInt(4, boardGame.getMaxPlayers());
             insertIntoBoardGames.setDouble(5, boardGame.getPrice());
             insertIntoBoardGames.setInt(6, boardGame.getQuantity());
-            insertIntoBoardGames.setInt(7, quont);
+
 
             deleteARequest.setString(1, "boardgames");
             deleteARequest.setString(2, boardGame.getTitle());
@@ -421,7 +425,7 @@ public class DbHandler {
 
         return true;
     }
-
+    // Adds request to DB, if book is already in DB
     public boolean insertRequest(Request request) {
         try {
             insertIntoRequests.setInt(1, request.getId());
@@ -438,7 +442,7 @@ public class DbHandler {
         }
         return true;
     }
-
+    // Prints all the requests from DB and their properties
     public List<Request> queryRequest() {
         try {
             ResultSet results = queryAllRequests.executeQuery();
@@ -461,7 +465,7 @@ public class DbHandler {
             return null;
         }
     }
-
+    // Searches for books by whole or part of title
     @SuppressWarnings("Duplicates")
     public List<Book> searchByTitle(String title) {
         try {
@@ -486,7 +490,7 @@ public class DbHandler {
         }
 
     }
-
+    // Searches through books by Author
     @SuppressWarnings("Duplicates")
     public List<Book> searchByAuthor(String author) {
         try {
@@ -510,6 +514,7 @@ public class DbHandler {
         }
 
     }
+
     @SuppressWarnings("Duplicates")
     public List<BoardGame> searchBoardGameByTitle(String title){
         try{
@@ -533,6 +538,8 @@ public class DbHandler {
             return null;
         }
     }
+
+    // Searches through board games by number of players
     @SuppressWarnings("Duplicates")
     public List<BoardGame> searchByNumOfPlayers(int numPlayers) {
         try {
